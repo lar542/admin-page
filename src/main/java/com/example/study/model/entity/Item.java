@@ -1,46 +1,84 @@
 package com.example.study.model.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.example.study.model.BaseTimeEntity;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Data
-public class Item extends BaseTimeEntity {
+@EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@Accessors(chain = true)
+public class Item {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private Partner parter;
-	
+	@Column(nullable = false, length = 50)
 	private String status;
 	
+	@Column(nullable = false, length = 100)
 	private String name;
 	
+	@Column(nullable = false, length = 100)
 	private String title;
 	
+	@Column(columnDefinition = "TEXT")
 	private String content;
 	
+	@Column(nullable = false)
 	private Integer price;
 	
+	@Column(length = 50)
 	private String brandName;
 	
+	@CreatedDate
 	private LocalDateTime registeredAt;
 	
 	private LocalDateTime unregisteredAt;
+	
+	@OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+	private List<OrderDetail> orderDetails;
+	
+	@ManyToOne
+	private Partner partner;
+	
+	@CreatedDate
+    private LocalDateTime createdAt;
+    
+    @CreatedBy
+	private String createdBy;
+    
+    @LastModifiedDate
+	private LocalDateTime updatedAt;
+    
+	@LastModifiedBy
+	private String updatedBy;
+	
 }

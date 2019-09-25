@@ -19,4 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	//select * from where account = ? and email = ?
 	//파라미터는 순서대로 매칭됨
 	Optional<User> findByAccountAndEmail(String account, String email);
+	
+	//id를 역순으로 검색하여 가장 마지막에 등록된 핸드폰번호 하나를 가져옴
+	User findFirstByPhoneNumberOrderByIdDesc(String phoneNumber);
 }

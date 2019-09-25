@@ -3,15 +3,13 @@ package com.example.study.repository;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.study.StudyApplicationTests;
-import com.example.study.model.entity.Item;
 import com.example.study.model.entity.User;
-
-import junit.framework.Assert;
 
 public class UserRepositoryTest extends StudyApplicationTests {
 
@@ -19,31 +17,45 @@ public class UserRepositoryTest extends StudyApplicationTests {
     @Autowired
     private UserRepository userRepository;
 
-//    @Test
+    @Test
     public void create(){
-        User user = new User();
-        user.setAccount("testuser02");
-        user.setEmail("testuser02@gmail.com");
-        user.setPhoneNumber("010-1234-1234");
-//        user.setCreatedAt(LocalDateTime.now());
-//        user.setCreatedBy("testuser02");
-
-        User newUser = userRepository.save(user);
-        System.out.println("newUser : " + newUser);
+    	String account = "Test03";
+    	String password = "Test03";
+    	String status = "REGISTERED";
+    	String email = "Test01@gmail.com";
+    	String phoneNumber = "010-1234-3333";
+    	
+    	User user = User.builder()
+    			.account(account)
+    			.password(password)
+    			.status(status)
+    			.email(email)
+    			.phoneNumber(phoneNumber)
+    			.build();
+    	
+    	User newUser = userRepository.save(user);
+    	Assert.assertNotNull(newUser);
     }
 
-    @Test
-    @Transactional
+//    @Test
+//    @Transactional
     public void read(){
-        Optional<User> findUser = userRepository.findByAccount("ppppp");
-
-        //findUser를 selectUser로 칭하고 있는 경우에 출력
-//        findUser.ifPresent(selectUser -> {
-//        	selectUser.getOrderDetails().stream().forEach(detail -> {
-//        		Item item = detail.getItem();
-//        		System.out.println(item);
-//        	});
-//        });
+        User findUser = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1234-4321");
+        
+        findUser.getOrderGroup().stream().forEach(orderGroup -> {
+        	System.out.println("수령인 : " + orderGroup.getRevName());
+        	System.out.println("수령지" + orderGroup.getRevAddress());
+        	
+        	orderGroup.getOrderDetails().forEach(orderDetail -> {
+        		System.out.println("파트너사이름 : " + orderDetail.getItem().getPartner().getName());
+        		System.out.println("파트너사카테고리 : " + orderDetail.getItem().getPartner().getCategory().getTitle());
+        		System.out.println("주문상품 : " + orderDetail.getItem().getName());
+        		System.out.println("고객센터번호 : " + orderDetail.getItem().getPartner().getCallCenter());
+        		System.out.println("주문상태 : " + orderDetail.getStatus());
+        		System.out.println("도착예정일자 : " + orderDetail.getArrivalDate());
+        		
+        	});
+        });
     }
 
 //    @Test

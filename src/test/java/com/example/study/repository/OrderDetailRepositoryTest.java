@@ -1,5 +1,8 @@
 package com.example.study.repository;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +17,17 @@ public class OrderDetailRepositoryTest extends StudyApplicationTests {
 	
 	@Test
 	public void create() {
-		OrderDetail orderDetail = new OrderDetail();
-//		orderDetail.setItemId(1L);
-//		orderDetail.setUserId(2L);
-		
+		OrderDetail orderDetail = OrderDetail.builder()
+//				.orderGroupId(1L) //장바구니
+//				.itemId(1L) //상품
+				.status("WAITING")
+				.arrivalDate(LocalDateTime.now().plusDays(2))
+				.quantity(1)
+				.totalPrice(BigDecimal.valueOf(900000))
+				.createdAt(LocalDateTime.now())
+				.createdBy("AdminServer")
+				.build();
+				
 		OrderDetail newDetail = orderDetailRepository.save(orderDetail);
 		Assert.assertNotNull(newDetail);
 	}
