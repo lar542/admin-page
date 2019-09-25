@@ -4,4 +4,4 @@
 * Spring Boot, JPA, Thymeleaf, Maven을 이용
 
 ## ERD
-![ERD.png](ERD)
+![/ERD.png](ERD)
