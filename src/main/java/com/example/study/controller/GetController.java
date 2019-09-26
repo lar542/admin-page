@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.study.model.SearchParam;
+import com.example.study.model.network.Header;
 
 @RestController
 @RequestMapping("/api")
@@ -27,5 +28,12 @@ public class GetController {
     public SearchParam getMultiParameter(SearchParam searchParam){
         System.out.println(searchParam.toString());
         return searchParam; //json 응답 : Spring boot는 기본적으로 잭슨 라이브러리 내장
+    }
+    
+    
+    @GetMapping("/header")
+    public Header getHeader() {
+    	//{"resultCode": "OK", "description": "OK"}
+    	return Header.builder().resultCode("OK").description("OK").build();
     }
 }
