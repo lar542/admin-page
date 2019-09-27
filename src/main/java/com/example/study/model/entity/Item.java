@@ -1,5 +1,6 @@
 package com.example.study.model.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -53,12 +54,11 @@ public class Item {
 	private String content;
 	
 	@Column(nullable = false)
-	private Integer price;
+	private BigDecimal price;
 	
 	@Column(length = 50)
 	private String brandName;
 	
-	@CreatedDate
 	private LocalDateTime registeredAt;
 	
 	private LocalDateTime unregisteredAt;

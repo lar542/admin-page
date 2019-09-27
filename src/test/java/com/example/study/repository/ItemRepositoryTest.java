@@ -22,7 +22,7 @@ public class ItemRepositoryTest extends StudyApplicationTests {
 				.name("삼성 노트북")
 				.title("삼성 노트북 A100")
 				.content("2019년 노트북입니다")
-				.price(900000)
+//				.price(900000)
 				.brandName("삼성")
 				.registeredAt(LocalDateTime.now())
 				.createdAt(LocalDateTime.now())

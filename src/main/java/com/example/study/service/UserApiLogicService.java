@@ -41,20 +41,43 @@ public class UserApiLogicService implements CrudInterface<UserApiReuqest, UserAp
 
 	@Override
 	public Header<UserApiResponse> read(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.findById(id)
+			.map(user -> response(user)) //user객체가 있으면 map으로 response 메소드 적용
+			.orElseGet( //user가 없다면
+				() -> Header.ERROR("데이터 없음")
+			);
 	}
 
 	@Override
 	public Header<UserApiResponse> update(Header<UserApiReuqest> request) {
-		// TODO Auto-generated method stub
-		return null;
+		UserApiReuqest userApiReuqest = request.getData();
+		
+		return userRepository.findById(userApiReuqest.getId())
+			.map(user -> { //user 객체가 있으면
+				//set
+				user
+					.setAccount(userApiReuqest.getAccount())
+					.setPassword(userApiReuqest.getPassword())
+					.setStatus(userApiReuqest.getStatus())
+					.setPhoneNumber(userApiReuqest.getPhoneNumber())
+					.setEmail(userApiReuqest.getEmail())
+					.setRegisteredAt(userApiReuqest.getRegisteredAt())
+					.setUnregisteredAt(userApiReuqest.getUnregisteredAt());
+				return user;
+			})
+			.map(user -> userRepository.save(user))		//update -> 새로운 user 객체 리턴
+			.map(updateUser -> response(updateUser)) 	//userApiResponse
+			.orElseGet(() -> Header.ERROR("데이터 없음"));	//위에서 user 객체가 한 번이라도 없을 때
 	}
 
 	@Override
 	public Header delete(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.findById(id)
+				.map(user -> {
+					userRepository.delete(user);
+					return Header.OK();
+				})
+				.orElseGet(() -> Header.ERROR("데이터 없음"));
 	}
 	
 	/**
