@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.study.model.entity.OrderDetail;
+import com.example.study.model.enumclass.ItemStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,7 @@ public class ItemApiRequest {
 
 	private Long id;
 	
-	private String status;
+	private ItemStatus status;
 	
 	private String name;
 	

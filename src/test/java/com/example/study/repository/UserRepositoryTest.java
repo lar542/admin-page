@@ -28,7 +28,7 @@ public class UserRepositoryTest extends StudyApplicationTests {
     	User user = User.builder()
     			.account(account)
     			.password(password)
-    			.status(status)
+//    			.status(status)
     			.email(email)
     			.phoneNumber(phoneNumber)
     			.build();

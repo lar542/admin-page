@@ -2,6 +2,8 @@ package com.example.study.model.network.request;
 
 import java.time.LocalDateTime;
 
+import com.example.study.model.enumclass.UserStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +24,7 @@ public class UserApiReuqest {
     
     private String password; //요청일 때 평문으로 들어옴
     
-    private String status;
+    private UserStatus status;
     
     private String email;
     

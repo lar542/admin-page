@@ -30,7 +30,7 @@ public class PartnerRepositoryTest extends StudyApplicationTests {
     	
     	Partner partner = Partner.builder()
     			.name(name)
-    			.status(status)
+//    			.status(status)
     			.address(address)
     			.callCenter(callCenter)
     			.partnerNumber(partnerNumber)

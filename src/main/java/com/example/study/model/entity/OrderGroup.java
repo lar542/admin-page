@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +21,10 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.example.study.model.enumclass.OrderGroupStatus;
+import com.example.study.model.enumclass.OrderType;
+import com.example.study.model.enumclass.PaymentType;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -42,10 +48,12 @@ public class OrderGroup {
 	private Long id;
 	
 	@Column(nullable = false, length = 50)
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private OrderGroupStatus status;
 	
 	@Column(nullable = false, length = 50)
-	private String orderType;
+	@Enumerated(EnumType.STRING)
+	private OrderType orderType;
 	
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String revAddress;
@@ -54,7 +62,8 @@ public class OrderGroup {
 	private String revName;
 	
 	@Column(nullable = false, length = 50)
-	private String paymentType;
+	@Enumerated(EnumType.STRING)
+	private PaymentType paymentType;
 	
 	@Column(nullable = false)
 	private BigDecimal totalPrice;

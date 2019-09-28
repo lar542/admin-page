@@ -2,21 +2,16 @@ package com.example.study.service;
 
 import java.time.LocalDateTime;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.study.ifs.CrudInterface;
 import com.example.study.model.entity.User;
+import com.example.study.model.enumclass.UserStatus;
 import com.example.study.model.network.Header;
 import com.example.study.model.network.request.UserApiReuqest;
 import com.example.study.model.network.response.UserApiResponse;
-import com.example.study.repository.UserRepository;
 
 @Service
-public class UserApiLogicService implements CrudInterface<UserApiReuqest, UserApiResponse>{
-
-	@Autowired
-	private UserRepository userRepository;
+public class UserApiLogicService extends BaseService<UserApiReuqest, UserApiResponse, User>{
 
 	@Override
 	public Header<UserApiResponse> create(Header<UserApiReuqest> request) {
@@ -27,13 +22,13 @@ public class UserApiLogicService implements CrudInterface<UserApiReuqest, UserAp
 		User user = User.builder()
 				.account(userApiReuqest.getAccount())
 				.password(userApiReuqest.getPassword())
-				.status("REGISTERED")
+				.status(UserStatus.REGISTERED)
 				.phoneNumber(userApiReuqest.getPhoneNumber())
 				.email(userApiReuqest.getEmail())
 				.registeredAt(LocalDateTime.now())
 				.build();
 		
-		User newUser = userRepository.save(user);
+		User newUser = baseRepository.save(user);
 		
 		//3. 생성된 데이터를 UserApiResponse로 만들어 리턴
 		return response(newUser);
@@ -41,7 +36,7 @@ public class UserApiLogicService implements CrudInterface<UserApiReuqest, UserAp
 
 	@Override
 	public Header<UserApiResponse> read(Long id) {
-		return userRepository.findById(id)
+		return baseRepository.findById(id)
 			.map(user -> response(user)) //user객체가 있으면 map으로 response 메소드 적용
 			.orElseGet( //user가 없다면
 				() -> Header.ERROR("데이터 없음")
@@ -52,7 +47,7 @@ public class UserApiLogicService implements CrudInterface<UserApiReuqest, UserAp
 	public Header<UserApiResponse> update(Header<UserApiReuqest> request) {
 		UserApiReuqest userApiReuqest = request.getData();
 		
-		return userRepository.findById(userApiReuqest.getId())
+		return baseRepository.findById(userApiReuqest.getId())
 			.map(user -> { //user 객체가 있으면
 				//set
 				user
@@ -65,16 +60,16 @@ public class UserApiLogicService implements CrudInterface<UserApiReuqest, UserAp
 					.setUnregisteredAt(userApiReuqest.getUnregisteredAt());
 				return user;
 			})
-			.map(user -> userRepository.save(user))		//update -> 새로운 user 객체 리턴
+			.map(user -> baseRepository.save(user))		//update -> 새로운 user 객체 리턴
 			.map(updateUser -> response(updateUser)) 	//userApiResponse
 			.orElseGet(() -> Header.ERROR("데이터 없음"));	//위에서 user 객체가 한 번이라도 없을 때
 	}
 
 	@Override
 	public Header delete(Long id) {
-		return userRepository.findById(id)
+		return baseRepository.findById(id)
 				.map(user -> {
-					userRepository.delete(user);
+					baseRepository.delete(user);
 					return Header.OK();
 				})
 				.orElseGet(() -> Header.ERROR("데이터 없음"));

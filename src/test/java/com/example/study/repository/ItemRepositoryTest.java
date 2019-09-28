@@ -18,7 +18,7 @@ public class ItemRepositoryTest extends StudyApplicationTests {
 	@Test
 	public void create() {
 		Item item = Item.builder()
-				.status("UNREGISTERED")
+//				.status("UNREGISTERED")
 				.name("삼성 노트북")
 				.title("삼성 노트북 A100")
 				.content("2019년 노트북입니다")

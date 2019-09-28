@@ -2,6 +2,8 @@ package com.example.study.model.network.response;
 
 import java.time.LocalDateTime;
 
+import com.example.study.model.enumclass.UserStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +21,7 @@ private String account;
     
     private String password; //암호화하여 응답
     
-    private String status;
+    private UserStatus status;
     
     private String email;
     
