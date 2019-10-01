@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entity.AdminUser;
+import com.example.study.model.enumclass.AdminUserRole;
+import com.example.study.model.enumclass.AdminUserStatus;
 
 public class AdminUserRepositoryTest extends StudyApplicationTests {
 
@@ -17,8 +19,8 @@ public class AdminUserRepositoryTest extends StudyApplicationTests {
 		AdminUser adminUser = AdminUser.builder()
 				.account("AdminUser04")
 				.password("AdminUser04")
-				.status("REGISTERED")
-				.role("PARTNER")
+				.status(AdminUserStatus.REGISTERED)
+				.role(AdminUserRole.ADMIN)
 				.build();
 		
 		AdminUser newAdminUser = adminUserRepository.save(adminUser);

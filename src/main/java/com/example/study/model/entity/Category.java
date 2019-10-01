@@ -1,22 +1,22 @@
 package com.example.study.model.entity;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.example.study.model.BaseTimeEntity;
+import com.example.study.model.enumclass.CategoryType;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -34,30 +34,19 @@ import lombok.experimental.Accessors;
 @Setter
 @Builder
 @Accessors(chain = true)
-public class Category {
+public class Category extends BaseTimeEntity {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(nullable = false, length = 50)
-	private String type;
+	@Enumerated(EnumType.STRING)
+	private CategoryType type;
 	
 	@Column(length = 100)
 	private String title;
 	
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	private List<Partner> partners;
-
-	@CreatedDate
-    private LocalDateTime createdAt;
-    
-    @CreatedBy
-	private String createdBy;
-    
-    @LastModifiedDate
-	private LocalDateTime updatedAt;
-    
-	@LastModifiedBy
-	private String updatedBy;
 	
 }

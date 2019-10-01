@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entity.OrderDetail;
+import com.example.study.model.enumclass.OrderDetailStatus;
 
 public class OrderDetailRepositoryTest extends StudyApplicationTests {
 	
@@ -20,12 +21,10 @@ public class OrderDetailRepositoryTest extends StudyApplicationTests {
 		OrderDetail orderDetail = OrderDetail.builder()
 //				.orderGroupId(1L) //장바구니
 //				.itemId(1L) //상품
-				.status("WAITING")
+				.status(OrderDetailStatus.COMPLETE)
 				.arrivalDate(LocalDateTime.now().plusDays(2))
 				.quantity(1)
 				.totalPrice(BigDecimal.valueOf(900000))
-				.createdAt(LocalDateTime.now())
-				.createdBy("AdminServer")
 				.build();
 				
 		OrderDetail newDetail = orderDetailRepository.save(orderDetail);

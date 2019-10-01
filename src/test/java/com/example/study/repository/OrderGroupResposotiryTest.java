@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entity.OrderGroup;
+import com.example.study.model.enumclass.OrderGroupStatus;
+import com.example.study.model.enumclass.OrderType;
+import com.example.study.model.enumclass.PaymentType;
 
 public class OrderGroupResposotiryTest extends StudyApplicationTests {
 
@@ -19,17 +22,15 @@ public class OrderGroupResposotiryTest extends StudyApplicationTests {
 	public void create() {
 		OrderGroup orderGroup = OrderGroup.builder()
 //				.userId(3L)
-//				.status("COMPLETE")
-//				.orderType("ALL")
+				.status(OrderGroupStatus.COMPLETE)
+				.orderType(OrderType.ALL)
 				.revAddress("서울시 강남구")
 				.revName("홍길동")
-//				.paymentType("CARD")
+				.paymentType(PaymentType.CARD)
 				.totalPrice(BigDecimal.valueOf(900000))
 				.totalQuantity(1)
 				.orderAt(LocalDateTime.now().minusDays(2))
 				.arrivalDate(LocalDateTime.now())
-				.createdAt(LocalDateTime.now())
-				.createdBy("AdminServer")
 				.build();
 	
 		OrderGroup newOrderGroup = orderGroupRepository.save(orderGroup);

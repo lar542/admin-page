@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserApiResponse {
 
-private String account;
-
 	private Long id;
+	
+	private String account;
     
     private String password; //암호화하여 응답
     

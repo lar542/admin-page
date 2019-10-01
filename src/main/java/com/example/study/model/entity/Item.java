@@ -16,12 +16,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.example.study.model.BaseTimeEntity;
 import com.example.study.model.enumclass.ItemStatus;
 
 import lombok.AccessLevel;
@@ -40,7 +37,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Builder
 @Accessors(chain = true)
-public class Item {
+public class Item extends BaseTimeEntity {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -73,17 +70,5 @@ public class Item {
 	
 	@ManyToOne
 	private Partner partner;
-	
-	@CreatedDate
-    private LocalDateTime createdAt;
-    
-    @CreatedBy
-	private String createdBy;
-    
-    @LastModifiedDate
-	private LocalDateTime updatedAt;
-    
-	@LastModifiedBy
-	private String updatedBy;
 	
 }

@@ -1,5 +1,6 @@
 package com.example.study.repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entity.Item;
+import com.example.study.model.enumclass.ItemStatus;
 
 public class ItemRepositoryTest extends StudyApplicationTests {
 
@@ -18,15 +20,13 @@ public class ItemRepositoryTest extends StudyApplicationTests {
 	@Test
 	public void create() {
 		Item item = Item.builder()
-//				.status("UNREGISTERED")
+				.status(ItemStatus.REGISTERED)
 				.name("삼성 노트북")
 				.title("삼성 노트북 A100")
 				.content("2019년 노트북입니다")
-//				.price(900000)
+				.price(BigDecimal.valueOf(900000))
 				.brandName("삼성")
 				.registeredAt(LocalDateTime.now())
-				.createdAt(LocalDateTime.now())
-				.createdBy("Partner01")
 //				.partnerId(1L)
 				.build();
 		

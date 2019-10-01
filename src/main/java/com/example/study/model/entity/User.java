@@ -14,12 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.example.study.model.BaseTimeEntity;
 import com.example.study.model.enumclass.UserStatus;
 
 import lombok.AccessLevel;
@@ -38,7 +35,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Builder
 @Accessors(chain = true) //체이닝 형태로 객체를 생성하거나 수정 가능
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -59,7 +56,6 @@ public class User {
     @Column(nullable = false, length = 13)
     private String phoneNumber;
     
-    @CreatedDate
     private LocalDateTime registeredAt;
     
     private LocalDateTime unregisteredAt;
@@ -67,15 +63,4 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<OrderGroup> orderGroup;
     
-    @CreatedDate
-    private LocalDateTime createdAt;
-    
-    @CreatedBy
-	private String createdBy;
-    
-    @LastModifiedDate
-	private LocalDateTime updatedAt;
-    
-	@LastModifiedBy
-	private String updatedBy;
 }

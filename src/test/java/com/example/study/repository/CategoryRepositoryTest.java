@@ -1,6 +1,5 @@
 package com.example.study.repository;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.junit.Assert;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entity.Category;
+import com.example.study.model.enumclass.CategoryType;
 
 public class CategoryRepositoryTest extends StudyApplicationTests {
 	
@@ -18,10 +18,8 @@ public class CategoryRepositoryTest extends StudyApplicationTests {
 //	@Test
 	public void create() {
 		Category category = Category.builder()
-				.type("COMPUTER")
+				.type(CategoryType.ELECTRONICS)
 				.title("컴퓨터")
-				.createdAt(LocalDateTime.now())
-				.createdBy("AdminServer")
 				.build();
 		
 		Category newCategory = categoryRepository.save(category);

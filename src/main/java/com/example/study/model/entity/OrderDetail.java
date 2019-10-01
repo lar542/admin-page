@@ -6,16 +6,17 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.example.study.model.BaseTimeEntity;
+import com.example.study.model.enumclass.OrderDetailStatus;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -33,13 +34,14 @@ import lombok.experimental.Accessors;
 @Setter
 @Builder
 @Accessors(chain = true)
-public class OrderDetail {
+public class OrderDetail extends BaseTimeEntity {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(nullable = false, length = 50)
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private OrderDetailStatus status;
 	
 	private LocalDateTime arrivalDate;
 	
@@ -55,15 +57,4 @@ public class OrderDetail {
 	@ManyToOne
 	private Item item;
 	
-	@CreatedDate
-    private LocalDateTime createdAt;
-    
-    @CreatedBy
-	private String createdBy;
-    
-    @LastModifiedDate
-	private LocalDateTime updatedAt;
-    
-	@LastModifiedBy
-	private String updatedBy;
 }
