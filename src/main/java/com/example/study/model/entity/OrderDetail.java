@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.example.study.model.BaseTimeEntity;
-import com.example.study.model.enumclass.OrderDetailStatus;
+import com.example.study.model.enumclass.OrderGroupStatus;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -41,7 +41,7 @@ public class OrderDetail extends BaseTimeEntity {
 	
 	@Column(nullable = false, length = 50)
 	@Enumerated(EnumType.STRING)
-	private OrderDetailStatus status;
+	private OrderGroupStatus status;
 	
 	private LocalDateTime arrivalDate;
 	

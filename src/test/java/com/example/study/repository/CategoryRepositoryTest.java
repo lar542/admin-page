@@ -18,7 +18,7 @@ public class CategoryRepositoryTest extends StudyApplicationTests {
 //	@Test
 	public void create() {
 		Category category = Category.builder()
-				.type(CategoryType.ELECTRONICS)
+//				.type(CategoryType.ELECTRONICS)
 				.title("컴퓨터")
 				.build();
 		

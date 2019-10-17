@@ -3,7 +3,7 @@ package com.example.study.model.network.request;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.example.study.model.enumclass.OrderDetailStatus;
+import com.example.study.model.enumclass.OrderGroupStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +18,7 @@ public class OrderDetailApiRequest {
 
 	private Long id;
 	
-	private OrderDetailStatus status;
+	private OrderGroupStatus status;
 	
 	private LocalDateTime arrivalDate;
 	

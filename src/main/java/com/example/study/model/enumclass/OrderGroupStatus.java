@@ -7,8 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum OrderGroupStatus {
 
-	WAITING(0, "결제대기", "장바구니에 저장한 상태"), 
-	COMPLETE(1, "결제완료", "결제완료상태")
+	ORDERING(0, "주문완료", "주문완료상태"),
+	CONFIRM(1, "결제완료", "결제완료상태"),
+	COMPLETE(2, "배송완료", "배송완료상태"),
 	;
 	
 	private Integer id;

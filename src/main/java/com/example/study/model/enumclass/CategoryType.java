@@ -7,11 +7,15 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum CategoryType {
 
-	FASHION(0, "패션", "패션 스타일"),
-	BEAUTY(1, "뷰티", "뷰티"),
-	FOOD(2, "식품", "식품"),
+	COMPUTER(0, "컴퓨터-전자제품", "컴퓨터-전자제품"),
+	CLOTHING(1, "의류", "의류"),
+	MULTI_SHOP(2, "멀티샵", "멀티샵"),
 	INTERIOR(3, "인테리어", "인테리어"),
-	ELECTRONICS(4, "전자제품", "전자제품"),
+	FOOD(4, "식품", "식품"),
+	SPORTS(5, "스포츠", "스포츠"),
+	SHOPPING_MALL(6, "쇼핑몰", "쇼핑몰"),
+	DUTY_FREE(7, "면세점", "면세점"),
+	BEAUTY(8, "화장", "화장")
 	;
 	
 	private Integer id;

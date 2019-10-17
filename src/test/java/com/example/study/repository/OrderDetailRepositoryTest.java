@@ -21,7 +21,7 @@ public class OrderDetailRepositoryTest extends StudyApplicationTests {
 		OrderDetail orderDetail = OrderDetail.builder()
 //				.orderGroupId(1L) //장바구니
 //				.itemId(1L) //상품
-				.status(OrderDetailStatus.COMPLETE)
+//				.status(OrderDetailStatus.COMPLETE)
 				.arrivalDate(LocalDateTime.now().plusDays(2))
 				.quantity(1)
 				.totalPrice(BigDecimal.valueOf(900000))
