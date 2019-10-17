@@ -61,6 +61,6 @@ public class User extends BaseTimeEntity {
     private LocalDateTime unregisteredAt;
     
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<OrderGroup> orderGroup;
+    private List<OrderGroup> orderGroups;
     
 }

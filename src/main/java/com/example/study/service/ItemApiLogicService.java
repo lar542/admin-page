@@ -1,9 +1,13 @@
 package com.example.study.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.study.model.entity.Item;
@@ -36,6 +40,7 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
 				})
 				.map(newItem -> baseRepository.save(newItem))
 				.map(newItem -> response(newItem))
+				.map(Header::OK)
 				.orElseGet(() -> Header.ERROR("데이터 없음"));
 	}
 
@@ -43,6 +48,7 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
 	public Header<ItemApiResponse> read(Long id) {
 		return baseRepository.findById(id)
 			.map(item -> response(item))
+			.map(Header::OK)
 			.orElseGet(() -> Header.ERROR("데이터 없음"));
 	}
 
@@ -66,6 +72,7 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
 				})
 				.map(newEntityItem -> baseRepository.save(newEntityItem))
 				.map(item -> response(item))
+				.map(Header::OK)
 				.orElseGet(() -> Header.ERROR("데이터 없음"));
 	}
 
@@ -79,7 +86,18 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
 				.orElseGet(() -> Header.ERROR("데이터 없음"));
 	}
 	
-	private Header<ItemApiResponse> response(Item item){
+	@Override
+	public Header<List<ItemApiResponse>> search(Pageable pageable) {
+		Page<Item> items = baseRepository.findAll(pageable);
+		
+		List<ItemApiResponse> itemApiResponseList = items.stream()
+				.map(item -> response(item))
+				.collect(Collectors.toList());
+		
+		return Header.OK(itemApiResponseList);
+	}	
+	
+	public ItemApiResponse response(Item item){
 		//API에서 상태 값을 title이나 description으로 변경해서 가져올 수 있다.
 		String statusTitle = item.getStatus().getTitle();
 		
@@ -95,7 +113,7 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
 				.unregisteredAt(item.getUnregisteredAt())
 				.partnerId(item.getPartner().getId())
 				.build();
-		return Header.OK(itemApiResponse);
-	}					
+		return itemApiResponse;
+	}
 
 }

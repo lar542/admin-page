@@ -1,8 +1,12 @@
 package com.example.study.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.study.model.entity.OrderDetail;
@@ -37,6 +41,7 @@ public class OrderDetailApiLoginService extends BaseService<OrderDetailApiReques
 				})
 				.map(newEntity -> baseRepository.save(newEntity))
 				.map(newEntity -> response(newEntity))
+				.map(Header::OK)
 				.orElseGet(() -> Header.ERROR("데이터 없음"));
 	}
 
@@ -44,6 +49,7 @@ public class OrderDetailApiLoginService extends BaseService<OrderDetailApiReques
 	public Header<OrderDetailApiResponse> read(Long id) {
 		return baseRepository.findById(id)
 				.map(findEntity -> response(findEntity))
+				.map(Header::OK)
 				.orElseGet(() -> Header.ERROR("데이터 없음"));
 	}
 
@@ -64,6 +70,7 @@ public class OrderDetailApiLoginService extends BaseService<OrderDetailApiReques
 				})
 				.map(updateEntity -> baseRepository.save(updateEntity))
 				.map(newEntity -> response(newEntity))
+				.map(Header::OK)
 				.orElseGet(() -> Header.ERROR("데이터 없음"));
 	}
 
@@ -76,8 +83,19 @@ public class OrderDetailApiLoginService extends BaseService<OrderDetailApiReques
 				})
 				.orElseGet(() -> Header.ERROR("데이터 없음"));
 	}
+	
+	@Override
+	public Header<List<OrderDetailApiResponse>> search(Pageable pageable) {
+		Page<OrderDetail> orderDetails = baseRepository.findAll(pageable);
+		
+		List<OrderDetailApiResponse> orderDetailApiResponseList = orderDetails.stream()
+				.map(orderDetail -> response(orderDetail))
+				.collect(Collectors.toList());
+		
+		return Header.OK(orderDetailApiResponseList);
+	}
 
-	private Header<OrderDetailApiResponse> response(OrderDetail orderDetail){
+	private OrderDetailApiResponse response(OrderDetail orderDetail){
 		OrderDetailApiResponse body = OrderDetailApiResponse.builder()
 				.id(orderDetail.getId())
 				.status(orderDetail.getStatus())
@@ -87,6 +105,6 @@ public class OrderDetailApiLoginService extends BaseService<OrderDetailApiReques
 				.orderGroupId(orderDetail.getOrderGroup().getId())
 				.itemId(orderDetail.getItem().getId())
 				.build();
-		return Header.OK(body);
+		return body;
 	}
 }

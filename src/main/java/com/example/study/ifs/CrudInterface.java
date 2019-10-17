@@ -1,5 +1,9 @@
 package com.example.study.ifs;
 
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
+
 import com.example.study.model.network.Header;
 
 /**
@@ -14,4 +18,6 @@ public interface CrudInterface<Req, Res> {
 	Header<Res> update(Header<Req> request);
 	
 	Header delete(Long id);
+	
+	Header<List<Res>> search(Pageable pageable);
 }
