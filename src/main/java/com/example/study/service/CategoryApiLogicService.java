@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.study.model.entity.Category;
 import com.example.study.model.network.Header;
+import com.example.study.model.network.Pagination;
 import com.example.study.model.network.request.CategoryApiRequest;
 import com.example.study.model.network.response.CategoryApiResponse;
 
@@ -75,7 +76,14 @@ public class CategoryApiLogicService extends BaseService<CategoryApiRequest, Cat
 				.map(category -> response(category))
 				.collect(Collectors.toList());
 		
-		return Header.OK(categoryApiResponseList);
+		Pagination pagination = Pagination.builder()
+				.totalPages(categorys.getTotalPages())
+				.totalElements(categorys.getTotalElements())
+				.currentPage(categorys.getNumber())
+				.currentElements(categorys.getNumberOfElements())
+				.build();
+		
+		return Header.OK(categoryApiResponseList, pagination);
 	}
 
 	private CategoryApiResponse response(Category category){

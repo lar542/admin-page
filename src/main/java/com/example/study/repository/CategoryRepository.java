@@ -12,4 +12,5 @@ import com.example.study.model.enumclass.CategoryType;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
 	Optional<Category> findByType(CategoryType type);
+	
 }

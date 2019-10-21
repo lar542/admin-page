@@ -36,4 +36,6 @@ public class PartnerApiResponse {
 	private LocalDateTime unregisteredAt;
 	
 	private Long categoryId;
+	
+	private String categoryTitle;
 }

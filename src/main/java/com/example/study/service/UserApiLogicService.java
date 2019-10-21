@@ -14,6 +14,7 @@ import com.example.study.model.entity.OrderGroup;
 import com.example.study.model.entity.User;
 import com.example.study.model.enumclass.UserStatus;
 import com.example.study.model.network.Header;
+import com.example.study.model.network.Pagination;
 import com.example.study.model.network.request.UserApiReuqest;
 import com.example.study.model.network.response.ItemApiResponse;
 import com.example.study.model.network.response.OrderGroupApiResponse;
@@ -107,7 +108,14 @@ public class UserApiLogicService extends BaseService<UserApiReuqest, UserApiResp
 				.map(user -> response(user))
 				.collect(Collectors.toList());
 		
-		return Header.OK(userApiResponseList);
+		Pagination pagination = Pagination.builder()
+				.totalPages(users.getTotalPages())
+				.totalElements(users.getTotalElements())
+				.currentPage(users.getNumber())
+				.currentElements(users.getNumberOfElements())
+				.build();
+		
+		return Header.OK(userApiResponseList, pagination);
 	}
 	
 	@Override

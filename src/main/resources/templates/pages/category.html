@@ -1,0 +1,101 @@
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default_layout">
+      
+	<th:block layout:fragment="content_body">
+	
+		<div class="content-wrapper">
+	        <section class="content-header">
+	            <h1>상품 카테고리 관리
+	                <small>상품 카테고리 관리</small>
+	            </h1>
+	            <ol class="breadcrumb">
+	                <li><a href="#"><i class="fa fa-dashboard"></i> 상품 카테고리 관리</a></li>
+	                <li class="active">상품 카테고리 관리</li>
+	            </ol>
+	        </section>
+	
+	        <section class="content">
+	
+	            <div class="row">
+	                <div class="col-xs-12">
+	                    <div class="box">
+	                        
+	                        <!-- /.box-header -->
+	                        <div class="box-body">
+	                            <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+	                                <div class="row">
+	                                    <div class="col-sm-6"></div>
+	                                    <div class="col-sm-6"></div>
+	                                </div>
+	                                <div class="row">
+	                                    <div class="col-sm-12">
+	                                        <table id="example2" class="table table-bordered table-hover dataTable"
+	                                               role="grid" aria-describedby="example2_info">
+	
+	                                            <thead>
+	                                            <tr role="row">
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														id
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														카테고리 타입
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														카테고리 이름
+	                                                </th>
+	                                            </tr>
+	                                            </thead>
+	                                            <tbody id="itemList">
+		                                            <tr role="row" class="odd" v-for="dto in itemList" v-on:click="itemClick(dto.id)">
+		                                                <td class="text-center">{{dto.id}}</td>
+		                                                <td class="text-center">{{dto.type}}</td>
+		                                                <td class="text-center">{{dto.title}}</td>
+		                                            </tr>
+	                                            </tbody>
+	                                        </table>
+	                                    </div>
+	                                </div>
+	                                <div class="row">
+	                                    <div class="col-sm-5">
+	                                        <div id="showPage" class="dataTables_info" role="status" aria-live="polite">
+	                                        	{{currentPage}} / {{totalPages}}
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-sm-7">
+	                                        <div class="dataTables_paginate paging_simple_numbers" id="pageBtn">
+	                                            <ul class="pagination">
+	                                                <li class="paginate_button previous" id="previousBtn">
+	                                                    <a href="javascript:;" v-on:click="previousClick()">이전</a>
+	                                                </li>
+	
+	                                                <li class="paginate_button" v-for="btn in btnList" v-bind:btn_id="btn" v-on:click="indexClick(btn)">
+	                                                    <a href="javascript:;" aria-controls="example2">{{btn}}</a>
+	                                                </li>
+	
+	                                                <li class="paginate_button next" id="nextBtn">
+	                                                    <a href="javascript:;" v-on:click="nextClick()">다음</a>
+	                                                </li>
+	                                            </ul>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	
+	        </section>
+	    </div>
+	    
+	</th:block>
+	
+	<th:block layout:fragment="custom_js">
+		<script src="/app/category.js"></script>
+	</th:block>
+</html>

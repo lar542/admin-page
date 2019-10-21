@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.study.model.entity.Partner;
 import com.example.study.model.network.Header;
+import com.example.study.model.network.Pagination;
 import com.example.study.model.network.request.PartnerApiRequest;
 import com.example.study.model.network.response.PartnerApiResponse;
 import com.example.study.repository.CategoryRepository;
@@ -96,7 +97,14 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
 				.map(partner -> response(partner))
 				.collect(Collectors.toList());
 		
-		return Header.OK(partnerApiResponseList);
+		Pagination pagination = Pagination.builder()
+				.totalPages(partners.getTotalPages())
+				.totalElements(partners.getTotalElements())
+				.currentPage(partners.getNumber())
+				.currentElements(partners.getNumberOfElements())
+				.build();
+		
+		return Header.OK(partnerApiResponseList, pagination);
 	}
 	
 	private PartnerApiResponse response(Partner partner) {
@@ -112,6 +120,7 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
 				.registeredAt(partner.getRegisteredAt())
 				.unregisteredAt(partner.getUnregisteredAt())
 				.categoryId(partner.getCategory().getId())
+				.categoryTitle(partner.getCategory().getTitle())
 				.build();
 		return partnerApiResponse;
 	}

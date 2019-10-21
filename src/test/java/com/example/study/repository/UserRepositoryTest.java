@@ -42,20 +42,20 @@ public class UserRepositoryTest extends StudyApplicationTests {
     public void read(){
         User findUser = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1234-4321");
         
-        findUser.getOrderGroup().stream().forEach(orderGroup -> {
-        	System.out.println("수령인 : " + orderGroup.getRevName());
-        	System.out.println("수령지" + orderGroup.getRevAddress());
-        	
-        	orderGroup.getOrderDetails().forEach(orderDetail -> {
-        		System.out.println("파트너사이름 : " + orderDetail.getItem().getPartner().getName());
-        		System.out.println("파트너사카테고리 : " + orderDetail.getItem().getPartner().getCategory().getTitle());
-        		System.out.println("주문상품 : " + orderDetail.getItem().getName());
-        		System.out.println("고객센터번호 : " + orderDetail.getItem().getPartner().getCallCenter());
-        		System.out.println("주문상태 : " + orderDetail.getStatus());
-        		System.out.println("도착예정일자 : " + orderDetail.getArrivalDate());
-        		
-        	});
-        });
+//        findUser.getOrderGroup().stream().forEach(orderGroup -> {
+//        	System.out.println("수령인 : " + orderGroup.getRevName());
+//        	System.out.println("수령지" + orderGroup.getRevAddress());
+//        	
+//        	orderGroup.getOrderDetails().forEach(orderDetail -> {
+//        		System.out.println("파트너사이름 : " + orderDetail.getItem().getPartner().getName());
+//        		System.out.println("파트너사카테고리 : " + orderDetail.getItem().getPartner().getCategory().getTitle());
+//        		System.out.println("주문상품 : " + orderDetail.getItem().getName());
+//        		System.out.println("고객센터번호 : " + orderDetail.getItem().getPartner().getCallCenter());
+//        		System.out.println("주문상태 : " + orderDetail.getStatus());
+//        		System.out.println("도착예정일자 : " + orderDetail.getArrivalDate());
+//        		
+//        	});
+//        });
     }
 
 //    @Test

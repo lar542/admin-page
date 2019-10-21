@@ -26,6 +26,9 @@ public class Header<T> {
 	//json body
 	private T data;
 	
+	// pagination
+    private Pagination pagination;
+	
 	/**
 	 * 정상적인 통신
 	 * @param <T>
@@ -53,6 +56,23 @@ public class Header<T> {
 				.data(data)
 				.build();
 	}
+	
+	/**
+	 * 페이징을 포함한 통신
+	 * @param <T>
+	 * @param data
+	 * @param pagination
+	 * @return
+	 */
+	public static <T> Header<T> OK(T data, Pagination pagination){
+        return (Header<T>)Header.builder()
+                .transactionTime(LocalDateTime.now())
+                .resultCode("OK")
+                .description("OK")
+                .data(data)
+                .pagination(pagination)
+                .build();
+    }
 	
 	/**
 	 * 설명을 가지고 있고 데이터가 없는 에러

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.study.model.entity.Item;
 import com.example.study.model.network.Header;
+import com.example.study.model.network.Pagination;
 import com.example.study.model.network.request.ItemApiRequest;
 import com.example.study.model.network.response.ItemApiResponse;
 import com.example.study.repository.PartnerRepository;
@@ -94,16 +95,20 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
 				.map(item -> response(item))
 				.collect(Collectors.toList());
 		
-		return Header.OK(itemApiResponseList);
+		Pagination pagination = Pagination.builder()
+				.totalPages(items.getTotalPages())
+				.totalElements(items.getTotalElements())
+				.currentPage(items.getNumber())
+				.currentElements(items.getNumberOfElements())
+				.build();
+		
+		return Header.OK(itemApiResponseList, pagination);
 	}	
 	
 	public ItemApiResponse response(Item item){
-		//API에서 상태 값을 title이나 description으로 변경해서 가져올 수 있다.
-		String statusTitle = item.getStatus().getTitle();
-		
 		ItemApiResponse itemApiResponse = ItemApiResponse.builder()
 				.id(item.getId())
-				.status(item.getStatus())
+				.status(item.getStatus().getTitle()) //API에서 상태 값을 title이나 description으로 변경해서 가져올 수 있다.
 				.name(item.getName())
 				.title(item.getTitle())
 				.content(item.getContent())
@@ -112,6 +117,7 @@ public class ItemApiLogicService extends BaseService<ItemApiRequest, ItemApiResp
 				.registeredAt(item.getRegisteredAt())
 				.unregisteredAt(item.getUnregisteredAt())
 				.partnerId(item.getPartner().getId())
+				.partnerName(item.getPartner().getName())
 				.build();
 		return itemApiResponse;
 	}

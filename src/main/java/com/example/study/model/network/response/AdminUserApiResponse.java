@@ -1,14 +1,9 @@
 package com.example.study.model.network.response;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
-import com.example.study.model.entity.OrderDetail;
 import com.example.study.model.enumclass.AdminUserRole;
 import com.example.study.model.enumclass.AdminUserStatus;
-import com.example.study.model.enumclass.ItemStatus;
-import com.example.study.model.network.response.ItemApiResponse.ItemApiResponseBuilder;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
