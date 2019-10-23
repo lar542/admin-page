@@ -26,6 +26,11 @@
         el : '#itemList',
         data : {
             itemList : {}
+        },
+        methods: {
+        	itemClick: function(id){
+        		update(id);
+        	}
         }
     });
 
@@ -115,7 +120,6 @@
             // 페이지 버튼 셋팅
             pageBtnList.btnList = indexBtn;
 
-
             // 색상처리
             setTimeout(function () {
                 $('li[btn_id]').removeClass( "active" );
@@ -124,4 +128,117 @@
         });
     }
     
+    function update(id){
+    	$.get("/api/category/"+id, function(res){
+    		if(res['result_code'] != 'OK'){
+    			alert('해당 카테고리를 찾을 수 없습니다');
+    			return false;
+    		}
+    		var data = res.data;
+    		$('#category_id').val(data.id);
+    		$('#category_type').val(data.type);
+    		$('#category_title').val(data.title);
+    		
+    		//버튼 수정
+    		$('#createBtn').hide();
+    		$('#btnGroup').show();
+    	});
+    }
+    
 })(jQuery);
+
+function create(){
+	var arr = $('#categoryForm').serializeArray();
+	var reqBody = {
+		"data":{}
+	};
+	for(var i = 0; i < arr.length; i++){
+		if(arr[i]['name'] == "id"){
+			continue;
+		}
+		var tmp = arr[i]['value'];
+		if(tmp.length < 1){
+			alert('값을 입력해주세요');
+			$('#category_' + arr[i]['name']).focus();
+			return false;
+		}
+		reqBody["data"][arr[i]['name']] = tmp;
+	}
+	$.ajax({
+		url: '/api/category',
+		method: 'post',
+		contentType: 'application/json',
+		data: JSON.stringify(reqBody),
+		success: function(res){
+			if(res['result_code'] == "OK"){
+				alert('등록되었습니다');
+				location.reload();
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert(jqXHR + '\n' + textStatus + '\n' + errorThrown);
+		}
+	});
+}
+
+function updateBtn(){
+	if(confirm("수정하시겠습니까?") == false){
+		return;
+	}
+	var arr = $('#categoryForm').serializeArray();
+	var reqBody = {
+		"data":{}
+	};
+	for(var i = 0; i < arr.length; i++){
+		var tmp = arr[i]['value'];
+		if(tmp.length < 1){
+			alert('값을 입력해주세요');
+			$('#category_' + arr[i]['name']).focus();
+			return false;
+		}
+		reqBody["data"][arr[i]['name']] = tmp;
+	}
+	$.ajax({
+		url: '/api/category',
+		method:	'put',
+		contentType: 'application/json',
+		data: JSON.stringify(reqBody),
+		success: function(res){
+			if(res['result_code'] == "OK"){
+				alert('수정되었습니다');
+				location.reload();
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert(jqXHR + '\n' + textStatus + '\n' + errorThrown);
+		}
+	});
+}
+
+function deleteBtn(){
+	if(confirm("삭제하시겠습니까?") == false){
+		return;
+	}
+	var id = $('#category_id').val();
+	$.ajax({
+		url: '/api/category/'+id,
+		method: 'delete',
+		success: function(res){
+			if(res['result_code'] == "OK"){
+				alert('삭제되었습니다');
+				location.reload();
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert(jqXHR + '\n' + textStatus + '\n' + errorThrown);
+		}
+	});
+}
+
+function cancelBtn(){
+	$('#category_id').val('');
+	$('#category_type').val('');
+	$('#category_title').val('');
+	$('#createBtn').show();
+	$('#btnGroup').hide();
+}

@@ -5,8 +5,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +14,6 @@ import javax.persistence.OneToMany;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.example.study.model.BaseTimeEntity;
-import com.example.study.model.enumclass.CategoryType;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -40,8 +37,7 @@ public class Category extends BaseTimeEntity {
 	private Long id;
 	
 	@Column(nullable = false, length = 50)
-	@Enumerated(EnumType.STRING)
-	private CategoryType type;
+	private String type;
 	
 	@Column(length = 100)
 	private String title;

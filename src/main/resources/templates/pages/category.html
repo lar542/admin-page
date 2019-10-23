@@ -27,11 +27,24 @@
 	                        
 	                        <!-- /.box-header -->
 	                        <div class="box-body">
-	                            <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+	                            <div class="dataTables_wrapper form-inline dt-bootstrap">
 	                                <div class="row">
-	                                    <div class="col-sm-6"></div>
-	                                    <div class="col-sm-6"></div>
-	                                </div>
+	                            		<div class="col-sm-12">
+											<form class="navbar-form navbar-left" onsubmit="return false;" id="categoryForm">
+											  <div class="form-group">
+											  	<input type="hidden" id="category_id" name="id">
+											    <input type="text" class="form-control" placeholder="카테고리 타입" id="category_type" name="type">
+											    <input type="text" class="form-control" placeholder="카테고리 이름" id="category_title" name="title">
+											  </div>
+											  <button type="button" class="btn btn-info" onclick="create();" id="createBtn">등록</button>
+											  <div class="btn-group" role="group" id="btnGroup" style="display: none;">
+												  <button type="button" class="btn btn-warning" onclick="updateBtn()">수정</button>
+												  <button type="button" class="btn btn-danger" onclick="deleteBtn()">삭제</button>
+												  <button type="button" class="btn btn-default" onclick="cancelBtn()">취소</button>
+											  </div>
+											</form>
+	                            		</div>
+									</div>
 	                                <div class="row">
 	                                    <div class="col-sm-12">
 	                                        <table id="example2" class="table table-bordered table-hover dataTable"

@@ -1,10 +1,12 @@
 package com.example.study.controller.page;
 
-import com.example.study.service.AdminMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.example.study.model.enumclass.PartnerStatus;
+import com.example.study.service.AdminMenuService;
 
 @Controller
 @RequestMapping("")
@@ -12,6 +14,8 @@ public class PageController {
 
     @Autowired
     private AdminMenuService adminMenuService;
+    
+    
 
     @RequestMapping(path = {""})
     public ModelAndView index() {
@@ -31,9 +35,11 @@ public class PageController {
     
     @RequestMapping("/partner")
     public ModelAndView partner() {
+    	PartnerStatus[] test = PartnerStatus.class.getEnumConstants();
     	return new ModelAndView("/pages/partner")
     			.addObject("menuList", adminMenuService.getAdminMenu())
     			.addObject("code", "partner")
+    			.addObject("statusList", PartnerStatus.class.getEnumConstants())
     			;
     }
     

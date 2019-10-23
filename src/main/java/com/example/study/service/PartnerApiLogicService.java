@@ -111,7 +111,7 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
 		PartnerApiResponse partnerApiResponse = PartnerApiResponse.builder()
 				.id(partner.getId())
 				.name(partner.getName())
-				.status(partner.getStatus())
+				.status(partner.getStatus().getTitle())
 				.address(partner.getAddress())
 				.callCenter(partner.getCallCenter())
 				.partnerNumber(partner.getPartnerNumber())

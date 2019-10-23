@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.study.ifs.CrudInterface;
 import com.example.study.model.network.Header;
-import com.example.study.model.network.response.UserOrderInfoApiResponse;
 import com.example.study.service.BaseService;
 
 /**

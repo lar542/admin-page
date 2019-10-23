@@ -59,7 +59,6 @@
         }
     });
 
-
     $('#search').click(function () {
         searchStart(0)
     });

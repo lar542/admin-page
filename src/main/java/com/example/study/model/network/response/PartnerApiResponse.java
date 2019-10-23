@@ -2,8 +2,6 @@ package com.example.study.model.network.response;
 
 import java.time.LocalDateTime;
 
-import com.example.study.model.enumclass.PartnerStatus;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +17,7 @@ public class PartnerApiResponse {
 	
 	private String name;
 	
-	private PartnerStatus status;
+	private String status;
 	
 	private String address;
 	
