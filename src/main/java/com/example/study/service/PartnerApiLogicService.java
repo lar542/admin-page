@@ -1,5 +1,6 @@
 package com.example.study.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.study.model.entity.Partner;
+import com.example.study.model.enumclass.PartnerStatus;
 import com.example.study.model.network.Header;
 import com.example.study.model.network.Pagination;
 import com.example.study.model.network.request.PartnerApiRequest;
@@ -34,8 +36,7 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
 							.partnerNumber(body.getPartnerNumber())
 							.businessNumber(body.getBusinessNumber())
 							.ceoName(body.getCeoName())
-							.registeredAt(body.getRegisteredAt())
-							.unregisteredAt(body.getUnregisteredAt())
+							.registeredAt(LocalDateTime.now())
 							.category(categoryRepository.getOne(body.getCategoryId()))
 							.build();
 					return partner;
@@ -68,9 +69,9 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
 						.setPartnerNumber(body.getPartnerNumber())
 						.setBusinessNumber(body.getBusinessNumber())
 						.setCeoName(body.getCeoName())
-						.setRegisteredAt(body.getRegisteredAt())
-						.setUnregisteredAt(body.getUnregisteredAt())
+						.setUnregisteredAt(body.getStatus().equals(PartnerStatus.UNREGISTERED) ? LocalDateTime.now() : null)
 						.setCategory(categoryRepository.getOne(body.getCategoryId()));
+					
 					return partner;
 				})
 				.map(undatePartner -> baseRepository.save(undatePartner))
@@ -111,7 +112,8 @@ public class PartnerApiLogicService extends BaseService<PartnerApiRequest, Partn
 		PartnerApiResponse partnerApiResponse = PartnerApiResponse.builder()
 				.id(partner.getId())
 				.name(partner.getName())
-				.status(partner.getStatus().getTitle())
+				.statusKey(partner.getStatus().getKey())
+				.statusTitle(partner.getStatus().getTitle())
 				.address(partner.getAddress())
 				.callCenter(partner.getCallCenter())
 				.partnerNumber(partner.getPartnerNumber())

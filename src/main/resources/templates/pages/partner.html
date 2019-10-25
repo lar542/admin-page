@@ -29,18 +29,23 @@
 	                            <div class="dataTables_wrapper form-inline dt-bootstrap">
 	                                <div class="row">
 	                            		<div class="col-sm-12">
-											<form class="navbar-form navbar-left" onsubmit="return false;" id="categoryForm">
+											<form class="navbar-form navbar-left" onsubmit="return false;" id="partnerForm">
 											  <div class="form-group">
-											  	<input type="hidden" id="id" name="id">
-											    <input type="text" class="form-control" placeholder="주소" id="address" name="address">
-											    <input type="text" class="form-control" placeholder="콜센터 번호" id="call_center" name="call_center">
-											    <input type="text" class="form-control" placeholder="파트너사 번호" id="partner_number" name="partner_number">
-											    <input type="text" class="form-control" placeholder="사업자등록번호" id="business_number" name="business_number">
-											    <input type="text" class="form-control" placeholder="대표자명" id="ceo_name" name="ceo_name">
-											    <select class="form-control" id="status" name="status">
-											    	<option th:each="status : ${statusList}" th:value=""></option>
+											  	<input type="hidden" id="partner_id" name="id">
+											  	<input type="text" class="form-control" placeholder="지점 이름" id="partner_name" name="name">
+											    <input type="text" class="form-control" placeholder="주소" id="partner_address" name="address">
+											    <input type="text" class="form-control" placeholder="콜센터 번호" id="partner_call_center" name="call_center">
+											    <input type="text" class="form-control" placeholder="파트너사 번호" id="partner_partner_number" name="partner_number">
+											    <input type="text" class="form-control" placeholder="사업자등록번호" id="partner_business_number" name="business_number">
+											    <input type="text" class="form-control" placeholder="대표자명" id="partner_ceo_name" name="ceo_name">
+											    <select class="form-control" id="partner_status" name="status">
+											    	<option selected="selected" disabled="disabled">상태</option>
+											    	<option th:each="status : ${statusList}" th:text="${status.title}" th:value="${status.key}"></option>
 											    </select>
-											    <input type="text" class="form-control" placeholder="카테고리" id="category_id" name="category_id">
+											    <select class="form-control" id="partner_category_id" name="category_id">
+											    	<option selected="selected" disabled="disabled">상품 카테고리</option>
+											    	<option th:each="category : ${categoryList.data}" th:text="${category.title}" th:value="${category.id}"></option>
+											    </select>
 											  </div>
 											  <button type="button" class="btn btn-info" onclick="create();" id="createBtn">등록</button>
 											  <div class="btn-group" role="group" id="btnGroup" style="display: none;">
@@ -94,7 +99,7 @@
 	                                            </tr>
 	                                            </thead>
 	                                            <tbody id="itemList">
-		                                            <tr role="row" class="odd" v-for="dto in itemList">
+		                                            <tr role="row" class="odd" v-for="dto in itemList" v-on:click="itemClick(dto.id)">
 		                                                <td class="text-center">{{dto.id}}</td>
 		                                                <td class="text-center">{{dto.name}}</td>
 		                                                <td class="text-center">{{dto.address}}</td>
@@ -102,7 +107,7 @@
 		                                                <td class="text-center">{{dto.partner_number}}</td>
 		                                                <td class="text-center">{{dto.business_number}}</td>
 		                                                <td class="text-center">{{dto.ceo_name}}</td>
-		                                                <td class="text-center">{{dto.status}}</td>
+		                                                <td class="text-center">{{dto.status_title}}</td>
 		                                                <td class="text-center">{{dto.registered_at}}</td>
 	                                                	<td class="text-center">{{dto.unregistered_at}}</td>
 	                                                	<td class="text-center">{{dto.category_title}}</td>

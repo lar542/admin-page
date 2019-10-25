@@ -29,7 +29,7 @@
         },
         methods: {
         	itemClick: function(id){
-        		update(id);
+        		getItem(id);
         	}
         }
     });
@@ -128,7 +128,7 @@
         });
     }
     
-    function update(id){
+    function getItem(id){
     	$.get("/api/category/"+id, function(res){
     		if(res['result_code'] != 'OK'){
     			alert('해당 카테고리를 찾을 수 없습니다');

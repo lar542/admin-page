@@ -70,20 +70,30 @@ public class CategoryApiLogicService extends BaseService<CategoryApiRequest, Cat
 	
 	@Override
 	public Header<List<CategoryApiResponse>> search(Pageable pageable) {
-		Page<Category> categorys = baseRepository.findAll(pageable);
+		Page<Category> categories = baseRepository.findAll(pageable);
 		
-		List<CategoryApiResponse> categoryApiResponseList = categorys.stream()
+		List<CategoryApiResponse> categoryApiResponseList = categories.stream()
 				.map(category -> response(category))
 				.collect(Collectors.toList());
 		
 		Pagination pagination = Pagination.builder()
-				.totalPages(categorys.getTotalPages())
-				.totalElements(categorys.getTotalElements())
-				.currentPage(categorys.getNumber())
-				.currentElements(categorys.getNumberOfElements())
+				.totalPages(categories.getTotalPages())
+				.totalElements(categories.getTotalElements())
+				.currentPage(categories.getNumber())
+				.currentElements(categories.getNumberOfElements())
 				.build();
 		
 		return Header.OK(categoryApiResponseList, pagination);
+	}
+	
+	public Header<List<CategoryApiResponse>> getList(){
+		List<Category> categories = baseRepository.findAll();
+		
+		List<CategoryApiResponse> categoryApiResponses = categories.stream()
+				.map(category -> response(category))
+				.collect(Collectors.toList());
+		
+		return Header.OK(categoryApiResponses);
 	}
 
 	private CategoryApiResponse response(Category category){

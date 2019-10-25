@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.study.model.enumclass.PartnerStatus;
 import com.example.study.service.AdminMenuService;
+import com.example.study.service.CategoryApiLogicService;
 
 @Controller
 @RequestMapping("")
@@ -15,7 +16,8 @@ public class PageController {
     @Autowired
     private AdminMenuService adminMenuService;
     
-    
+    @Autowired
+    private CategoryApiLogicService categoryApiLogicService; 
 
     @RequestMapping(path = {""})
     public ModelAndView index() {
@@ -40,6 +42,7 @@ public class PageController {
     			.addObject("menuList", adminMenuService.getAdminMenu())
     			.addObject("code", "partner")
     			.addObject("statusList", PartnerStatus.class.getEnumConstants())
+    			.addObject("categoryList", categoryApiLogicService.getList())
     			;
     }
     
