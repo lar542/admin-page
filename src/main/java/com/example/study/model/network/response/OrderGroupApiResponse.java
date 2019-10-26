@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.study.model.enumclass.OrderGroupStatus;
-import com.example.study.model.enumclass.OrderType;
-import com.example.study.model.enumclass.PaymentType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,13 +21,13 @@ public class OrderGroupApiResponse {
 	
 	private OrderGroupStatus status;
 	
-	private OrderType orderType;
+	private String orderType;
 	
 	private String revAddress;
 	
 	private String revName;
 	
-	private PaymentType paymentType;
+	private String paymentType;
 	
 	private BigDecimal totalPrice;
 	

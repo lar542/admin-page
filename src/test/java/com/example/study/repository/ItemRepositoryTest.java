@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entity.Item;
@@ -17,7 +18,7 @@ public class ItemRepositoryTest extends StudyApplicationTests {
 	@Autowired
 	private ItemRepository itemRepository;
 	
-	@Test
+//	@Test
 	public void create() {
 		Item item = Item.builder()
 				.status(ItemStatus.REGISTERED)
@@ -38,5 +39,10 @@ public class ItemRepositoryTest extends StudyApplicationTests {
 	public void read() {
 		Optional<Item> findItem = itemRepository.findById(1L);
 		Assert.assertTrue(findItem.isPresent());
+	}
+	
+	@Test
+	public void 검색() {
+		
 	}
 }

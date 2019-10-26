@@ -22,25 +22,24 @@
 	                <div class="col-xs-12">
 	                    <div class="box box-danger">
 	                        <div class="box-header with-border">
-	                            <h3 class="box-title"></h3>
+	                            <h3 class="box-title">상품 검색</h3>
 	                        </div>
 	                        <div class="box-body">
 	                            <div class="row">
+	                            	<div class="col-xs-3">
+	                                    <label for="itemName">상품명</label>
+	                                    <input id="itemName" type="text" class="form-control" placeholder="상품명">
+	                                </div>
 	                                <div class="col-xs-3">
-	                                    <label for="partner">파트너사</label>
-	                                    <input id="partner" type="text" class="form-control" placeholder="파트너사">
+	                                    <label for="brandName">브랜드명</label>
+	                                    <input id="brandName" type="text" class="form-control" placeholder="브랜드명">
 	                                </div>
 	                                <div class="col-xs-3">
 	                                    <label for="status">상태</label>
-	                                    <input id="account" type="text" class="form-control" placeholder="Account">
-	                                </div>
-	                                <div class="col-xs-3">
-	                                    <label for="phoneNumber">PhoneNumber</label>
-	                                    <input id="phoneNumber" type="text" class="form-control" placeholder="PhoneNumber">
-	                                </div>
-	                                <div class="col-xs-3">
-	                                    <label for="itemName">Name</label>
-	                                    <input id="itemName" type="text" class="form-control" placeholder="Name">
+	                                    <select id="status" name="status" class="form-control">
+	                                    	<option selected="selected">선택</option>
+	                                    	<option th:each="status : ${statusList}" th:text="${status.title}" th:value="${status.key}"></option>
+	                                    </select>
 	                                </div>
 	                            </div>
 	                        </div>

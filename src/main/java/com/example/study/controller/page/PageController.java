@@ -2,9 +2,11 @@ package com.example.study.controller.page;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.study.model.enumclass.ItemStatus;
 import com.example.study.model.enumclass.PartnerStatus;
 import com.example.study.service.AdminMenuService;
 import com.example.study.service.CategoryApiLogicService;
@@ -51,6 +53,7 @@ public class PageController {
     	return new ModelAndView("/pages/item")
     			.addObject("menuList", adminMenuService.getAdminMenu())
     			.addObject("code", "item")
+    			.addObject("statusList", ItemStatus.class.getEnumConstants())
     			;
     }
     
@@ -62,11 +65,12 @@ public class PageController {
                 ;
     }
     
-    @RequestMapping("/order")
-    public ModelAndView order() {
+    @RequestMapping("/user/{id}")
+    public ModelAndView order(@PathVariable Long id) {
     	return new ModelAndView("/pages/order")
     			.addObject("menuList", adminMenuService.getAdminMenu())
     			.addObject("code", "order")
+    			.addObject("userId", id)
     			;
     }
     

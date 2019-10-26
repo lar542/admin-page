@@ -26,6 +26,11 @@
         el : '#itemList',
         data : {
             itemList : {}
+        },
+        methods: {
+        	orderGroup: function(id){
+        		location.href = "/user/" + id;
+        	}
         }
     });
 

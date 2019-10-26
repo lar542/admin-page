@@ -11,11 +11,12 @@
 		<div class="content-wrapper">
 	        <section class="content-header">
 	            <h1>고객 관리
-	            	<small>주문내역 관리</small>
+	            	<small>회원정보 관리</small>
 	            </h1>
 	            <ol class="breadcrumb">
 	                <li><a href="/user"><i class="fa fa-dashboard"></i> 고객 관리</a></li>
-	                <li class="active">주문내역 관리</li>
+	                <li><a href="/user"><i class="fa fa-dashboard"></i> 회원 관리</a></li>
+	                <li class="active">회원정보 관리</li>
 	            </ol>
 	        </section>
 	
@@ -24,15 +25,11 @@
 	            <div class="row">
 	                <div class="col-xs-12">
 	                    <div class="box">
-	                        <div class="box-header">
-	                            <h3 class="box-title">결과</h3>
-	                        </div>
 	                        <!-- /.box-header -->
 	                        <div class="box-body">
-	                            <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+	                            <div class="dataTables_wrapper form-inline dt-bootstrap">
 	                                <div class="row">
-	                                    <div class="col-sm-6"></div>
-	                                    <div class="col-sm-6"></div>
+	                                    <div class="col-sm-6">회원 정보</div>
 	                                </div>
 	                                <div class="row">
 	                                    <div class="col-sm-12">
@@ -45,10 +42,125 @@
 														id
 	                                                </th>
 	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
-														상품명
+														계정
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														이메일
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														전화번호
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														상태
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														가입일
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														해지일
+	                                                </th>
+	                                            </tr>
+	                                            </thead>
+	                                            <tbody id="userInfo">
+		                                            <tr role="row" class="odd">
+		                                                <td class="text-center">{{id}}</td>
+		                                                <td class="text-center">{{account}}</td>
+		                                                <td class="text-center">{{email}}</td>
+		                                                <td class="text-center">{{phoneNumber}}</td>
+		                                                <td class="text-center">{{status}}</td>
+		                                                <td class="text-center">{{registered_at}}</td>
+		                                                <td class="text-center">{{unregistered_at}}</td>
+		                                            </tr>
+	                                            </tbody>
+	                                        </table>
+	                                    </div>
+	                                </div>
+	                                
+	                                
+	                                <div class="row">
+	                                    <div class="col-sm-6">주문내역</div>
+	                                </div>
+	                                <div class="row">
+	                                    <div class="col-sm-12">
+	                                        <table class="table table-bordered table-hover dataTable"
+	                                               role="grid" aria-describedby="example2_info">
+	
+	                                            <thead>
+	                                            <tr role="row">
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														id
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														상태
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														주문 타입
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														배송 주소
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														이메일
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														결제 유형
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														총 결제 금액
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														총 결제 수량
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														결제 일자
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														도착 예정일
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														상품 개수
+	                                                </th>
+	                                            </tr>
+	                                            </thead>
+	                                            <tbody id="orderList">
+		                                            <tr role="row" class="odd" v-for="dto in orderList" v-on:click="orderItemClick(dto.item_api_response_list)">
+		                                                <td class="text-center">{{dto.id}}</td>
+		                                                <td class="text-center">{{dto.status}}</td>
+		                                                <td class="text-center">{{dto.order_type}}</td>
+		                                                <td class="text-center">{{dto.rev_address}}</td>
+		                                                <td class="text-center">{{dto.rev_name}}</td>
+		                                                <td class="text-center">{{dto.payment_type}}</td>
+		                                                <td class="text-center">{{dto.total_price}}</td>
+		                                                <td class="text-center">{{dto.total_quantity}}</td>
+		                                                <td class="text-center">{{dto.order_at}}</td>
+		                                                <td class="text-center">{{dto.arrival_date}}</td>
+		                                                <td class="text-center">{{dto.item_api_response_list.length}}</td>
+		                                            </tr>
+	                                            </tbody>
+	                                        </table>
+	                                    </div>
+	                                </div>
+	                                
+	                                <div class="row">
+	                                    <div class="col-sm-6">상품 조회</div>
+	                                </div>
+	                                <div class="row">
+	                                    <div class="col-sm-12">
+	                                        <table class="table table-bordered table-hover dataTable"
+	                                               role="grid" aria-describedby="example2_info">
+	                                            <thead>
+	                                            <tr role="row">
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														id
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														지점명
 	                                                </th>
 	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
 														상품 제목
+	                                                </th>
+	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
+														상품 내용
 	                                                </th>
 	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
 														가격
@@ -66,50 +178,28 @@
 														해지일
 	                                                </th>
 	                                                <th class="text-center bg-light-blue-gradient" tabindex="0" rowspan="1" colspan="1">
-														파트너사
+														파트너사 이름
 	                                                </th>
 	                                            </tr>
 	                                            </thead>
 	                                            <tbody id="itemList">
-	                                            <tr role="row" class="odd" v-for="dto in itemList">
-	                                                <td class="text-center">{{dto.id}}</td>
-	                                                <td class="text-center">{{dto.name}}</td>
-	                                                <td class="text-center">{{dto.title}}</td>
-	                                                <td class="text-center">{{dto.price}}</td>
-	                                                <td class="text-center">{{dto.brand_name}}</td>
-	                                                <td class="text-center">{{dto.status}}</td>
-	                                                <td class="text-center">{{dto.registered_at}}</td>
-	                                                <td class="text-center">{{dto.unregistered_at}}</td>
-	                                                <td class="text-center">{{dto.partner_name}}</td>
-	                                            </tr>
+		                                            <tr role="row" class="odd" v-for="dto in itemList">
+		                                                <td class="text-center">{{dto.id}}</td>
+		                                                <td class="text-center">{{dto.name}}</td>
+		                                                <td class="text-center">{{dto.title}}</td>
+		                                                <td class="text-left">{{dto.content}}</td>
+		                                                <td class="text-center">{{dto.price}}</td>
+		                                                <td class="text-center">{{dto.brand_name}}</td>
+		                                                <td class="text-center">{{dto.status}}</td>
+		                                                <td class="text-center">{{dto.registered_at}}</td>
+		                                                <td class="text-center">{{dto.unregistered_at}}</td>
+		                                                <td class="text-center">{{dto.partner_name}}</td>
+		                                            </tr>
 	                                            </tbody>
 	                                        </table>
 	                                    </div>
 	                                </div>
-	                                <div class="row">
-	                                    <div class="col-sm-5">
-	                                        <div id="showPage" class="dataTables_info" role="status" aria-live="polite">
-	                                        	{{currentPage}} / {{totalPages}}
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-sm-7">
-	                                        <div class="dataTables_paginate paging_simple_numbers" id="pageBtn">
-	                                            <ul class="pagination">
-	                                                <li class="paginate_button previous" id="previousBtn">
-	                                                    <a href="javascript:;" v-on:click="previousClick()">이전</a>
-	                                                </li>
-	
-	                                                <li class="paginate_button" v-for="btn in btnList" v-bind:btn_id="btn" v-on:click="indexClick(btn)">
-	                                                    <a href="javascript:;" aria-controls="example2">{{btn}}</a>
-	                                                </li>
-	
-	                                                <li class="paginate_button next" id="nextBtn">
-	                                                    <a href="javascript:;" v-on:click="nextClick()">다음</a>
-	                                                </li>
-	                                            </ul>
-	                                        </div>
-	                                    </div>
-	                                </div>
+	                                
 	                            </div>
 	                        </div>
 	                    </div>
@@ -122,6 +212,11 @@
 	</th:block>
 	
 	<th:block layout:fragment="custom_js">
-		<script src="/app/item.js"></script>
+		<script th:inline="javascript">
+		    /*<![CDATA[*/
+		    var userId = /*[[ ${userId} ]]*/;
+		    /*]]>*/
+		</script>
+		<script src="/app/order.js"></script>
 	</th:block>
 </html>

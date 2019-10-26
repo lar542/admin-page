@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.study.model.entity.Item;
 import com.example.study.model.entity.OrderGroup;
 import com.example.study.model.entity.User;
 import com.example.study.model.enumclass.UserStatus;
@@ -20,7 +19,6 @@ import com.example.study.model.network.response.ItemApiResponse;
 import com.example.study.model.network.response.OrderGroupApiResponse;
 import com.example.study.model.network.response.UserApiResponse;
 import com.example.study.model.network.response.UserOrderInfoApiResponse;
-import com.example.study.repository.OrderGroupRepository;
 import com.example.study.repository.UserRepository;
 
 @Service
@@ -118,7 +116,6 @@ public class UserApiLogicService extends BaseService<UserApiReuqest, UserApiResp
 		return Header.OK(userApiResponseList, pagination);
 	}
 	
-	@Override
 	public Header<UserOrderInfoApiResponse> orderInfo(Long id) {
 		//user
 		User user = userRepository.getOne(id);
@@ -162,7 +159,7 @@ public class UserApiLogicService extends BaseService<UserApiReuqest, UserApiResp
 				.password(user.getPassword()) //todo 암호화, 길이
 				.email(user.getEmail())
 				.phoneNumber(user.getPhoneNumber())
-				.status(user.getStatus())
+				.status(user.getStatus().getTitle())
 				.registeredAt(user.getRegisteredAt())
 				.unregisteredAt(user.getUnregisteredAt())
 				.build();

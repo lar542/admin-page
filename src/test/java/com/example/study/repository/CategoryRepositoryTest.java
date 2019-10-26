@@ -1,14 +1,11 @@
 package com.example.study.repository;
 
-import java.util.Optional;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entity.Category;
-import com.example.study.model.enumclass.CategoryType;
 
 public class CategoryRepositoryTest extends StudyApplicationTests {
 	
