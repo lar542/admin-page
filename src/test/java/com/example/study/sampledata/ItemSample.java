@@ -5,14 +5,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entity.Category;
 import com.example.study.model.entity.Item;
 import com.example.study.model.entity.Partner;
-import com.example.study.model.enumclass.CategoryType;
 import com.example.study.model.enumclass.ItemStatus;
 import com.example.study.repository.CategoryRepository;
 import com.example.study.repository.ItemRepository;
@@ -48,9 +46,9 @@ public class ItemSample extends StudyApplicationTests {
     }
 
 
-    @Test
+//    @Test
     public void createHomeAppliance(){
-    	CategoryType type = CategoryType.COMPUTER;
+    	String type = "COMPUTER";
         Category category = categoryRepository.findByType(type).get();
         List<Partner> partnerList = partnerRepository.findByCategory(category);
 
@@ -77,10 +75,10 @@ public class ItemSample extends StudyApplicationTests {
         }
     }
 
-    @Test
+//    @Test
     public void createClothing(){
 
-    	CategoryType type = CategoryType.CLOTHING;
+    	String type = "CLOTHING";
         Category category = categoryRepository.findByType(type).get();
         List<Partner> partnerList = partnerRepository.findByCategory(category);
 
@@ -107,10 +105,10 @@ public class ItemSample extends StudyApplicationTests {
     }
 
 
-    @Test
+//    @Test
     public void createMultiShop(){
 
-    	CategoryType type = CategoryType.MULTI_SHOP;
+    	String type = "MULTI_SHOP";
         Category category = categoryRepository.findByType(type).get();
         List<Partner> partnerList = partnerRepository.findByCategory(category);
 
@@ -136,10 +134,10 @@ public class ItemSample extends StudyApplicationTests {
         }
     }
 
-    @Test
+//    @Test
     public void createInterior(){
 
-    	CategoryType type = CategoryType.INTERIOR;
+    	String type = "INTERIOR";
         Category category = categoryRepository.findByType(type).get();
         List<Partner> partnerList = partnerRepository.findByCategory(category);
 
@@ -165,10 +163,10 @@ public class ItemSample extends StudyApplicationTests {
         }
     }
 
-    @Test
+//    @Test
     public void createFood(){
 
-    	CategoryType type = CategoryType.FOOD;
+    	String type = "FOOD";
         Category category = categoryRepository.findByType(type).get();
         List<Partner> partnerList = partnerRepository.findByCategory(category);
 
@@ -194,10 +192,10 @@ public class ItemSample extends StudyApplicationTests {
         }
     }
 
-    @Test
+//    @Test
     public void createSports(){
 
-    	CategoryType type = CategoryType.SPORTS;
+    	String type = "SPORTS";
         Category category = categoryRepository.findByType(type).get();
         List<Partner> partnerList = partnerRepository.findByCategory(category);
 
@@ -223,10 +221,10 @@ public class ItemSample extends StudyApplicationTests {
         }
     }
 
-    @Test
+//    @Test
     public void createShoppingMall(){
 
-    	CategoryType type = CategoryType.SHOPPING_MALL;
+    	String type = "SHOPPING_MALL";
         Category category = categoryRepository.findByType(type).get();
         List<Partner> partnerList = partnerRepository.findByCategory(category);
 
@@ -253,10 +251,10 @@ public class ItemSample extends StudyApplicationTests {
     }
 
 
-    @Test
+//    @Test
     public void createDutyFree(){
 
-    	CategoryType type = CategoryType.DUTY_FREE;
+    	String type = "DUTY_FREE";
         Category category = categoryRepository.findByType(type).get();
         List<Partner> partnerList = partnerRepository.findByCategory(category);
 
@@ -283,10 +281,10 @@ public class ItemSample extends StudyApplicationTests {
     }
 
 
-    @Test
+//    @Test
     public void createBeauty(){
 
-    	CategoryType type = CategoryType.BEAUTY;
+    	String type = "BEAUTY";
         Category category = categoryRepository.findByType(type).get();
         List<Partner> partnerList = partnerRepository.findByCategory(category);
 
